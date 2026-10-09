@@ -10,6 +10,8 @@ import SwiftUI
 struct LoginView: View {
     @State private var email: String = ""
     @State private var password: String = ""
+    @State private var isLoading: Bool = false
+    
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
             Image("instagram_logo")
@@ -65,6 +67,7 @@ struct LoginView: View {
             .padding(.top, 12)
             
             Button {
+                isLoading = true
             } label: {
                 Text("로그인하기")
                     .font(.system(size: 14, weight: .semibold))
@@ -75,13 +78,17 @@ struct LoginView: View {
                     .clipShape(
                         RoundedRectangle(cornerRadius: 5)
                     )
+               
+                
             }
             .padding(.horizontal, 16)
             .padding(.top, 63)
             
-            ProgressView("로그인 중...")
-                .tint(.instagramBlue)
-                .padding(.top, 24)
+            if isLoading {
+                ProgressView("로그인 중...")
+                    .tint(.instagramBlue)
+                    .padding(.top, 24)
+            }
             
             
             Spacer()
