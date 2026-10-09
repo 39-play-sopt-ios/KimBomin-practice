@@ -18,7 +18,7 @@ struct ProfileView: View {
             
             Text("moamoa")
                 .font(.system(size: 14, weight: .semibold))
-                .tracking(0.5)
+                .tracking(1.5)
                 .padding(.top, 13)
             
             Button{
@@ -33,7 +33,7 @@ struct ProfileView: View {
                         RoundedRectangle(cornerRadius: 5)
                     )
             }
-            .shadow(color: .black.opacity(0.15), radius: 4, x: 0, y: 2)
+            .shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 2)
             .padding(.horizontal, 34)
             .padding(.top, 12)
             
@@ -48,13 +48,13 @@ struct ProfileView: View {
                 Text("계정이 없으신가요?")
                     .font(.system(size: 12, weight: .regular))
                     .foregroundStyle(.black.opacity(0.4))
-                    .underline()
                 
                 Button{
                 } label: {
                     Text("회원가입하기.")
                         .font(.system(size:12, weight: .semibold))
                         .foregroundStyle(.black)
+                        .underline()
                 }
                 
             }
