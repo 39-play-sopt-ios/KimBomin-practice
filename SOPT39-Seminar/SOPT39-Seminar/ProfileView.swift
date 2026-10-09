@@ -18,6 +18,7 @@ struct ProfileView: View {
             
             Text("moamoa")
                 .font(.system(size: 14, weight: .semibold))
+                .tracking(0.5)
                 .padding(.top, 13)
             
             Button{
@@ -27,17 +28,18 @@ struct ProfileView: View {
                     .foregroundStyle(.white)
                     .frame(maxWidth:.infinity)
                     .frame(height: 44)
-                    .background(.blue)
+                    .background(.instagramBlue)
                     .clipShape(
                         RoundedRectangle(cornerRadius: 5)
                     )
             }
+            .shadow(color: .black.opacity(0.15), radius: 4, x: 0, y: 2)
             .padding(.horizontal, 34)
             .padding(.top, 12)
             
             Button("계정 전환") {}
                 .font(.system(size: 14, weight: .semibold))
-                .foregroundStyle(.blue)
+                .foregroundStyle(.instagramBlue)
                 .padding(.top, 30)
             
             Spacer()
@@ -46,6 +48,7 @@ struct ProfileView: View {
                 Text("계정이 없으신가요?")
                     .font(.system(size: 12, weight: .regular))
                     .foregroundStyle(.black.opacity(0.4))
+                    .underline()
                 
                 Button{
                 } label: {

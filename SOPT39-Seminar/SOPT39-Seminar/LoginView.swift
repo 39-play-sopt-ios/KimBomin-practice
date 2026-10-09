@@ -29,7 +29,7 @@ struct LoginView: View {
             .autocorrectionDisabled()
             .padding(.horizontal, 15)
             .frame(height: 44)
-            .background(.gray)
+            .background(.instagramGray)
             .clipShape(
                 RoundedRectangle(cornerRadius: 5)
             )
@@ -53,7 +53,7 @@ struct LoginView: View {
             .autocorrectionDisabled()
             .padding(.horizontal, 15)
             .frame(height: 44)
-            .background(.gray)
+            .background(.instagramGray)
             .clipShape(
                 RoundedRectangle(cornerRadius: 5)
             )
@@ -78,6 +78,11 @@ struct LoginView: View {
             }
             .padding(.horizontal, 16)
             .padding(.top, 63)
+            
+            ProgressView("로그인 중...")
+                .tint(.instagramBlue)
+                .padding(.top, 24)
+            
             
             Spacer()
         }
