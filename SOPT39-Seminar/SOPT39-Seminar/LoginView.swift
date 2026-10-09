@@ -74,7 +74,7 @@ struct LoginView: View {
                     .foregroundStyle(.white)
                     .frame(height: 44)
                     .frame(maxWidth: .infinity)
-                    .background(.blue)
+                    .background(.instagramBlue)
                     .clipShape(
                         RoundedRectangle(cornerRadius: 5)
                     )
