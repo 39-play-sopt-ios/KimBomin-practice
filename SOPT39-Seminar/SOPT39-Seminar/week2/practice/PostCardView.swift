@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PostCardView: View {
-    @Binding var isLiked: Bool
+    var isLiked: Bool
     let profileImage: Image
     let username: String
     let location: String
@@ -17,9 +17,11 @@ struct PostCardView: View {
     let caption: String
     let timeText: String
     
+    let onLinkButtonTapped: () -> Void
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            PostProfileHeaderView()
+            postProfileHeader
             
             postImage2
             actionIcons
@@ -31,8 +33,33 @@ struct PostCardView: View {
         
     }
     
+    private var postProfileHeader: some View{
+        HStack(spacing: 10) {
+            Image(.instagramProfile)
+                .resizable()
+                .scaledToFill()
+                .frame(width: 36, height: 36)
+                .clipShape(Circle())
+            
+            VStack(alignment: .leading, spacing: 2) {
+                Text("\(username)")
+                    .font(.system(size: 14, weight: .semibold))
+                
+                Text("\(location)")
+                    .font(.system(size: 12))
+            }
+            
+            Spacer()
+            
+            Image(.more)
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 12)
+        
+    }
+    
     private var postImage2: some View{
-        Image(.postImage1)
+        postImage
             .resizable()
             .scaledToFit()
             .frame(maxWidth: .infinity)
@@ -41,7 +68,7 @@ struct PostCardView: View {
     private var actionIcons: some View {
         HStack(spacing: 18) {
             Button{
-                isLiked.toggle()
+                onLinkButtonTapped()
             }label: {
                 Image(isLiked ? "heart_fill" : "heart")
             }

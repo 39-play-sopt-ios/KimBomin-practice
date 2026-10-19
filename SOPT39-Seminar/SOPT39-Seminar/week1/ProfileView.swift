@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct ProfileView: View {
+    let name : String
+    
     var body: some View {
+        
+    
         VStack(alignment: .center){
             Image("instagram_logo")
                 .padding(.top, 193)
@@ -16,7 +20,7 @@ struct ProfileView: View {
             Image("profile")
                 .padding(.top, 65)
             
-            Text("moamoa")
+            Text("\(name)")
                 .font(.system(size: 14, weight: .semibold))
                 .tracking(1.5)
                 .padding(.top, 13)
@@ -65,5 +69,5 @@ struct ProfileView: View {
     
 }
     #Preview {
-        ProfileView()
+        ProfileView(name: "123")
     }

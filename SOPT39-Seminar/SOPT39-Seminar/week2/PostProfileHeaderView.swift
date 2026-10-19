@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct PostProfileHeaderView: View {
-    let username: String
-    let location: String
+  
     
     var body: some View {
         HStack(spacing: 10) {
@@ -20,10 +19,10 @@ struct PostProfileHeaderView: View {
                        .clipShape(Circle())
 
                    VStack(alignment: .leading, spacing: 2) {
-                       Text("\(username)")
+                       Text("이상엽")
                            .font(.system(size: 14, weight: .semibold))
 
-                       Text("\(location)")
+                       Text("어디게")
                            .font(.system(size: 12))
                    }
 
