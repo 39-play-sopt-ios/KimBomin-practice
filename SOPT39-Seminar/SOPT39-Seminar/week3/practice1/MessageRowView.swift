@@ -43,6 +43,3 @@ struct MessageRowView: View {
     }
     
 }
-#Preview {
-    MessageRowView(item: DMModel(name: "남명", message: "어이", time: "지금", profileImage: "profile" ) )
-}

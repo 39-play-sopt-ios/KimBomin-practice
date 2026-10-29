@@ -24,8 +24,3 @@ struct DMListView: View {
         
     }
 }
-
-
-#Preview {
-    DMListView()
-}

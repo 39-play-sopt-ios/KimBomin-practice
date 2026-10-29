@@ -58,6 +58,3 @@ struct GirdView: View {
     }
 }
 
-#Preview {
-    GirdView()
-}
