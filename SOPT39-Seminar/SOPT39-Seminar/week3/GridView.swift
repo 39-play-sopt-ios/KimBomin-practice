@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct GirdView: View {
+struct GridView: View {
     @State private var searchText = ""
     
     private let columnCount = 3
