@@ -49,11 +49,19 @@ struct GridView: View {
     
     private var searchBar : some View{
         HStack(spacing: 11){
-            TextField("검색", text: $searchText)
-            
-            Image(systemName: "bookmark")
-            
-        }
+                   TextField("검색", text: $searchText)
+                       .padding(.horizontal, 12)
+                       .frame(height: 36)
+                       .backgroundStyle(.gray)
+                       .background(Color(.systemGray5))
+                       .clipShape(RoundedRectangle(cornerRadius: 10))
+                       
+                      
+                   
+                   Image(systemName: "bookmark")
+                   
+               }
+               .padding(.horizontal,10)
         
     }
 }
