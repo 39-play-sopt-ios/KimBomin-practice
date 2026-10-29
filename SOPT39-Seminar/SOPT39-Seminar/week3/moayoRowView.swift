@@ -10,7 +10,7 @@ import SwiftUI
 struct moayoRowView: View {
     var body: some View {
         HStack{
-            Image("안녕")
+            Image(.instagramProfile)
             
             VStack{
                 Text("이름")

@@ -13,8 +13,6 @@ struct MemberListView: View {
                 VStack(spacing: 20) {
                     NavigationLink("주희 상세 보기", value: "주희")
                     NavigationLink("서영 상세 보기", value: "서영")
-
-                    
                 }
                 .navigationTitle("파트원")
                 .navigationDestination(for: String.self) { name in
