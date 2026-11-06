@@ -9,44 +9,56 @@ import SwiftUI
 
 struct PostListView: View {
     @State private var searchText = ""
-    
+    @State private var posts: [PostListResponseDTO.Post] = []
+    @State private var isLoading = false
+    @State private var errorMessage = ""
+    @State private var isShowingUploadSheet = false
+
     var body: some View {
-        
-        searchBar
-        
-        VStack(alignment: .leading, spacing: 8){
-            HStack(spacing: 4){
-                Text("이름")
-                    .font(.m12)
-                    .foregroundStyle(.gray3)
-                
-                Rectangle()
-                    .fill(Color(.gray3))
-                    .frame(width: 1, height: 12)
-                
-                Text("날짜")
-                    .font(.m12)
-                    .foregroundStyle(.gray3)
-                
-                Spacer()
+        VStack(spacing: 0) {
+            searchBar
+
+            ScrollView {
+                VStack(spacing: 12) {
+                    ForEach(posts) { post in
+                        PostCardRowView(
+                            title: post.title,
+                            content: post.content,
+                            author: post.author,
+                            createdAt: post.createdAt
+                        )
+                    }
+                }
             }
-            
-            VStack(alignment: .leading, spacing: 4){
-                Text("제목입니다다다다")
-                    .font(.m16)
-                Text("본문이에요본문어어어어어어ㅏㄹ너ㅣ런이ㅏ런아러알알알아렁ㄹㅇㄹㅇㄹ")
-                    .font(.m14)
+            .overlay(alignment: .bottomTrailing) {
+                Button {
+                    isShowingUploadSheet = true
+                } label: {
+                    Image(.floatingButton)
+                }
+                .padding(16)
             }
-            .foregroundStyle(.gray5)
         }
-        .padding(20)
-        .background{
-            RoundedRectangle(cornerRadius: 12)
-                .fill(.gray1)
-            
+        .task {
+            await loadPosts()
         }
-        .padding(.horizontal, 16)
+        .sheet(isPresented: $isShowingUploadSheet) {
+            PostUploadSheetView()
+            .presentationDetents([.height(340)])
+            .presentationDragIndicator(.visible)
+            .presentationBackground(.white)
+        }
     }
+
+    private func loadPosts() async {
+        do {
+            let response = try await PostService.shared.getPosts()
+            posts = response.data?.posts ?? []
+        } catch {
+            print(error)
+        }
+    }
+
     private var searchBar: some View {
         VStack(spacing: 0){
             HStack{
@@ -70,7 +82,6 @@ struct PostListView: View {
         }
     }
 }
-
 
 #Preview {
     PostListView()
