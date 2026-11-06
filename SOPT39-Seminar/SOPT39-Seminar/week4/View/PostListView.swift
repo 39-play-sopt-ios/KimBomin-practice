@@ -13,11 +13,12 @@ struct PostListView: View {
     @State private var isLoading = false
     @State private var errorMessage = ""
     @State private var isShowingUploadSheet = false
-
+    @State private var postToDelete: PostListResponseDTO.Post?
+    
     var body: some View {
         VStack(spacing: 0) {
             searchBar
-
+            
             ScrollView {
                 VStack(spacing: 12) {
                     ForEach(posts) { post in
@@ -27,6 +28,10 @@ struct PostListView: View {
                             author: post.author,
                             createdAt: post.createdAt
                         )
+                        .contentShape(Rectangle())
+                        .onLongPressGesture {
+                            postToDelete = post
+                        }
                     }
                 }
             }
@@ -42,11 +47,48 @@ struct PostListView: View {
         .task {
             await loadPosts()
         }
+        .overlay {
+            if let post = postToDelete {
+                ZStack {
+                    Color.black.opacity(0.4)
+                        .ignoresSafeArea()
+                        .onTapGesture {
+                            postToDelete = nil
+                        }
+
+                    PostDeleteModalView(
+                        onCancel: {
+                            postToDelete = nil
+                        },
+                        onDelete: {
+                            Task {
+                                await deletePost(post)
+                            }
+                        }
+                    )
+                }
+            }
+        }
         .sheet(isPresented: $isShowingUploadSheet) {
-            PostUploadSheetView()
+            PostUploadSheetView{
+                Task {
+                    await loadPosts()
+                }
+            }
             .presentationDetents([.height(340)])
             .presentationDragIndicator(.visible)
             .presentationBackground(.white)
+        }
+    }
+    
+    private func deletePost(_ post: PostListResponseDTO.Post) async {
+        postToDelete = nil
+
+        do {
+            _ = try await PostDeleteService.shared.postDelete(postID: post.id)
+            await loadPosts()
+        } catch {
+            print(error)
         }
     }
 
@@ -58,7 +100,7 @@ struct PostListView: View {
             print(error)
         }
     }
-
+    
     private var searchBar: some View {
         VStack(spacing: 0){
             HStack{

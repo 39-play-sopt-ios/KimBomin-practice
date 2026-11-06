@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct PostUploadSheetView: View {
+    let onPostCreated: () -> Void
+
+    @Environment(\.dismiss) private var dismiss
+    @State private var isUploading = false
     @State private var title = ""
     @State private var content = ""
     
@@ -42,6 +46,9 @@ struct PostUploadSheetView: View {
             }
 
             Button {
+                Task {
+                     await uploadPost()
+                 }
             } label: {
                 Text("완료")
                     .font(.sb14)
@@ -57,8 +64,23 @@ struct PostUploadSheetView: View {
         .padding(.top, 32)
 
     }
+    private func uploadPost() async {
+        guard !isUploading else { return }
+
+        isUploading = true
+        defer { isUploading = false }
+
+        do {
+            _ = try await PostUploadService.shared.postCreate(title: title, content: content)
+            onPostCreated()
+        } catch {
+            print(error)
+        }
+
+        dismiss()
+    }
 }
 
 #Preview {
-    PostUploadSheetView()
+    PostUploadSheetView(onPostCreated: {})
 }
