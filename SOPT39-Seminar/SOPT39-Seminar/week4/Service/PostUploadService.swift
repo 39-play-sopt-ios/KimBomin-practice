@@ -29,7 +29,7 @@ final class PostUploadService {
             throw NetworkError.urlError
         }
 
-        guard let authorizationCode = Bundle.main.object(forInfoDictionaryKey: "AUTHORIZATION_CODE") as? String,
+        guard let authorizationCode = UserDefaults.standard.string(forKey: "authorizationCode"),
               !authorizationCode.isEmpty else {
             throw NetworkError.unauthorized
         }
@@ -47,7 +47,7 @@ final class PostUploadService {
     }
     
     func postCreate(title: String, content: String) async throws -> PostUploadResponseDTO {
-        guard let author = Bundle.main.object(forInfoDictionaryKey: "AUTHOR_NAME") as? String,
+        guard let author = UserDefaults.standard.string(forKey: "authorName"),
               !author.isEmpty else {
             throw NetworkError.badRequest
         }
